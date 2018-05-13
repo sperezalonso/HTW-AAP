@@ -9,20 +9,22 @@ public class DestroyByContact : MonoBehaviour {
 	GameController gameController;
 
 	void Start() {
+		// Find the instance of the Game Controller script
 		gameController = GameObject.FindWithTag("GameController").GetComponent<GameController>();		
 	}
 
 	void OnTriggerEnter(Collider other) {
+		// Ignore collision with the level boundary
 		if (other.tag == "Boundary") {
 			return;
 		}
-		Instantiate(explosion, transform.position, transform.rotation);
+		Instantiate(explosion, transform.position, transform.rotation);			// Instantiate the explosions
 		if (other.tag == "Player") {
 			Instantiate(playerExplosion, other.transform.position, other.transform.rotation);
-			gameController.GameOver();		
+			gameController.GameOver();		// If an asteroid collides with the player, end the game	
 		}
-		gameController.AddScore();
-		Destroy(other.gameObject);
+		gameController.AddScore();		// Add a point for every destroyed asteroid
+		Destroy(other.gameObject);		// Destroy the laser and the asteroid objects
 		Destroy(gameObject);
 	}
 }

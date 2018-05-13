@@ -26,7 +26,8 @@ public class PlayerController : MonoBehaviour {
 
 	void Update() 
 	{
-		if ((Input.GetButton("Fire1") || Input.GetKeyDown("space")) && Time.time > nextFire){
+		if ((Input.GetButton("Fire1") || Input.GetKeyDown("space")) && Time.time > nextFire)		// Fire a blast with the main mouse key or the spacebar
+		{
 			nextFire = Time.time + fireRate;
 			Instantiate(shot, shotSpawn.position, shotSpawn.rotation);
 		}
@@ -39,11 +40,13 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 movement = new Vector3(-moveHorizontal, 0.0f, moveVertical);
 		rb.velocity = movement * speed;
+
+		// Limit the spaceship position within the screen
 		rb.position = new Vector3(
 			Mathf.Clamp(rb.position.x, boundary.xMin, boundary.xMax), 
 			0.0f, 
 			Mathf.Clamp(rb.position.z, boundary.zMin, boundary.zMax)
 			);
-		rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);
+		rb.rotation = Quaternion.Euler(0.0f, 0.0f, rb.velocity.x * -tilt);		// Have a tilt movement for the spaceship when moving sideways
 	}
 }

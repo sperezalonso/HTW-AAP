@@ -6,7 +6,7 @@ public class Rotator : MonoBehaviour {
 
 	public float tumble;
 
-	// Use this for initialization
+	// Add a random movement to the asteroids. Tumble speed is defined in the editor
 	void Start () {
 		GetComponent<Rigidbody>().angularVelocity = Random.insideUnitSphere * tumble;
 	}
